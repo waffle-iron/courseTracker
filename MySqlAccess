@@ -12,13 +12,18 @@ public class MySQLAccess {
     private PreparedStatement preparedStatement = null;
     private ResultSet resultSet = null;
 
+    private String connection = "jdbc:mysql://45.55.250.253/courses";
+    private String username = "reader";
+    private String password = "";
+
+
     public void readDataBase() throws Exception {
         try {
             // This will load the MySQL driver, each DB has its own driver
             Class.forName("com.mysql.jdbc.Driver");
             // Setup the connection with the DB
             connect = DriverManager
-                    .getConnection("jdbc:mysql://45.55.250.253/courses", "reader", "");
+                    .getConnection(connection, username, password);
 
             // Statements allow to issue SQL queries to the database
             statement = connect.createStatement();
@@ -33,12 +38,8 @@ public class MySQLAccess {
             // "myuser, webpage, datum, summary, COMMENTS from feedback.comments");
             // Parameters start with 1
 
-            preparedStatement.executeUpdate();
+            //preparedStatement.executeUpdate();
 
-            preparedStatement = connect
-                    .prepareStatement("SELECT * from courses.courses");
-            resultSet = preparedStatement.executeQuery();
-            writeResultSet(resultSet);
 
 
         } catch (Exception e) {
