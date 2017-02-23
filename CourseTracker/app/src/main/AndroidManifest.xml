@@ -32,6 +32,10 @@
         <activity
             android:name=".TodayOverviewActivity"
             android:label="@string/title_activity_today_overview"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".MissedLecturesActivity"
+            android:label="@string/title_activity_missed_lectures"
             android:theme="@style/AppTheme"></activity>
     </application>
 
