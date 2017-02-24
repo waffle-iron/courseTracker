@@ -8,11 +8,11 @@ var connection = mysql.createConnection({
 
 connection.connect();
 
-connection.query('SELECT * FROM courses.courses', function(error, rows, fields){
+connection.query('SELECT * FROM courses.courses WHERE courseID = TDT4140', function(error, rows, fields){
   if (! error) {
     console.log('RESULT: ', rows);
   } else {
-    console.log('Error while executing query');
+    console.log('Error while executing query: ', error);
   }
 });
 
