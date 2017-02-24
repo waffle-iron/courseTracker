@@ -29,14 +29,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="gruppe087.coursetracker.SetupActivity" />
         </activity>
-        <activity
-            android:name=".TodayOverviewActivity"
-            android:label="@string/title_activity_today_overview"
-            android:theme="@style/AppTheme" />
-        <activity
-            android:name=".MissedLecturesActivity"
-            android:label="@string/title_activity_missed_lectures"
-            android:theme="@style/AppTheme"></activity>
+        <activity android:name=".TodayOverviewActivity" />
+        <activity android:name=".MissedLecturesActivity"></activity>
     </application>
 
 </manifest>
