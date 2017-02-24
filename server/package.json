@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/henrikbossart/pu087#readme",
   "dependencies": {
-    "express": "^4.14.1"
+    "express": "^4.14.1",
+    "mysql": "^2.13.0"
   }
 }
