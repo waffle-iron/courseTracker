@@ -26,9 +26,10 @@ public class TodayOverviewActivity extends AppCompatActivity {
         // Initializing a new String Array
         String[] courses
                 = new String[] {
-                "KTN @ R1, 09.15-11.00",
+               "KTN @ R1, 09.15-11.00",
                 "MMI @ S3, 12.15-14.00",
                 "PU @ R1, 14.15-16.00"
+
         };
 
         // Create a List from String Array elements
