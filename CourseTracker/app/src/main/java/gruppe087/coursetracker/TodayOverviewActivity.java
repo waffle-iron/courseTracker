@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class TodayOverviewActivity extends AppCompatActivity {
-
+    getCourses test = new getCourses();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +34,8 @@ public class TodayOverviewActivity extends AppCompatActivity {
 
         // Create a List from String Array elements
         final List<String> course_list = new ArrayList<String>(Arrays.asList(courses));
-
+        System.out.println("About to test GET method!");
+        System.out.println(test.request());
         // Create an ArrayAdapter from List
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>
                 (this, android.R.layout.simple_list_item_1, course_list);
