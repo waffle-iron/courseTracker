@@ -29,8 +29,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="gruppe087.coursetracker.SetupActivity" />
         </activity>
-        <activity android:name=".TodayOverviewActivity" />
+        <activity
+            android:name=".TodayOverviewActivity" />
         <activity android:name=".MissedLecturesActivity"></activity>
     </application>
-
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    
+    
 </manifest>
