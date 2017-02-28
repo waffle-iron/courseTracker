@@ -31,6 +31,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class TodayOverviewActivity extends AppCompatActivity {
     @Override
@@ -41,15 +42,27 @@ public class TodayOverviewActivity extends AppCompatActivity {
         // Get reference of widgets from XML layout
         final ListView lv = (ListView) findViewById(R.id.lv);
 
+        HttpGetRequest getRequest = new HttpGetRequest();
+        String url = "http://138.197.33.171/php/test.php";
+        String result;
+        try {
+            result = getRequest.execute(url).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            result=null;
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+            result=null;
+        }
         // Initializing a new String Array
         String[] courses
                 = new String[]{
                 "KTN @ R1, 09.15-11.00",
                 "MMI @ S3, 12.15-14.00",
-                "PU @ R1, 14.15-16.00"
+                "PU @ R1, 14.15-16.00",
+                result
 
         };
-
 
         // Create a List from String Array elements
         final List<String> course_list = new ArrayList<String>(Arrays.asList(courses));
@@ -60,10 +73,6 @@ public class TodayOverviewActivity extends AppCompatActivity {
         // DataBind ListView with items from ArrayAdapter
         lv.setAdapter(arrayAdapter);
         arrayAdapter.notifyDataSetChanged();
-
-
-        getCourses test = new getCourses();
-        System.out.println(test.getOutput());
 
         final Button button = (Button) findViewById(R.id.today_button);
         button.setOnClickListener(new View.OnClickListener() {
