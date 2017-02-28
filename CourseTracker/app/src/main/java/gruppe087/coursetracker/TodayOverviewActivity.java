@@ -54,13 +54,29 @@ public class TodayOverviewActivity extends AppCompatActivity {
             e.printStackTrace();
             result=null;
         }
+
+        try {
+            JSONArray jsonArray = new JSONArray(result);
+            for (int i = 0; i<jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                String code = jsonObject.getString("courseID");
+                String name = jsonObject.getString("courseName");
+                String location = jsonObject.getString("location");
+                String time = jsonObject.getString("time");
+
+                System.out.println(name + " @ " + location + ": " + time);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         // Initializing a new String Array
         String[] courses
                 = new String[]{
                 "KTN @ R1, 09.15-11.00",
                 "MMI @ S3, 12.15-14.00",
                 "PU @ R1, 14.15-16.00",
-                result
 
         };
 

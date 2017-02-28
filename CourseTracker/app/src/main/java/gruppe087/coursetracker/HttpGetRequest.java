@@ -2,6 +2,10 @@ package gruppe087.coursetracker;
 
 import android.os.AsyncTask;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -21,7 +25,7 @@ public class HttpGetRequest extends AsyncTask<String, Void, String> {
     protected String doInBackground(String... params) {
 
         String coursecode = params[0];
-        String stringURL = "http://138.197.33.171/php/test.php?courseID=" + coursecode;
+        String stringURL = "http://138.197.33.171/php/getCourses.php";
         String result;
         String inputLine;
 
