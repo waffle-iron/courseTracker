@@ -13,8 +13,21 @@
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+<<<<<<< HEAD:CourseTracker/app/src/main/res/layout/activity_choose_courses_setup.xml
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="26dp"
         android:id="@+id/lv_choose_courses_setup" />
+=======
+        android:layout_below="@+id/section_label"
+        android:layout_centerHorizontal="true" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/listView"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/spinner2" />
+
+>>>>>>> 1c8d535d7d022b959e5c51c5ce999f593abcfebf:CourseTracker/app/src/main/res/layout/fragment_today_view.xml
 </RelativeLayout>
