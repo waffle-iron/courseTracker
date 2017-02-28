@@ -13,7 +13,8 @@ $connection = mysqli_connect($servername, $username, $password, $dbname)
 $sql = "select TIME_FORMAT(time, '%H:%i'), courses.courseID, courseName, location
         from courses
         inner join lecture
-        where courses.'$coursecode' = lecture.courseID";
+        WHERE courses.courseID = '$coursecode'
+        AND courses.courseID = lecture.courseID";
 
 $result = mysqli_query($connection, $sql)
   or die("Error in selecting " . mysqli_error($connection));
