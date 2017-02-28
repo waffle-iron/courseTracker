@@ -20,7 +20,8 @@ public class HttpGetRequest extends AsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(String... params) {
 
-        String stringURL = params[0];
+        String coursecode = params[0];
+        String stringURL = "http://138.197.33.171/php/test.php?courseID=" + coursecode;
         String result;
         String inputLine;
 
