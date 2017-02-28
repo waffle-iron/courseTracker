@@ -24,21 +24,27 @@ public class HttpGetRequest extends AsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(String... params) {
 
+        // Taking in the params and defining the coursecode
         String coursecode = params[0];
-        String stringURL = "http://138.197.33.171/php/getCourses.php";
+        String stringURL = "http://138.197.33.171/php/getCourses.php?courseID="+coursecode;
+        System.out.println(stringURL);
         String result;
         String inputLine;
 
         try {
+
+            // Connecting to the given URL
             URL url = new URL(stringURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
+            // Setting connection methods
             connection.setRequestMethod(REQUEST_METHOD);
             connection.setReadTimeout(READ_TIMEOUT);
             connection.setConnectTimeout(CONNECTION_TIMEOUT);
 
             connection.connect();
 
+            // Creating an InputStreamReader to read what the server is sending back
             InputStreamReader streamReader = new InputStreamReader(connection.getInputStream());
 
             BufferedReader reader = new BufferedReader(streamReader);
