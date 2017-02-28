@@ -3,7 +3,7 @@
     package="gruppe087.coursetracker.test" >
 
     <uses-sdk
-        android:minSdkVersion="15"
+        android:minSdkVersion="14"
         android:targetSdkVersion="25" />
 
     <instrumentation

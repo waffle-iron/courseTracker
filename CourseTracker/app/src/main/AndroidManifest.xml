@@ -2,8 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="gruppe087.coursetracker">
 
-        <uses-permission android:name="android.permission.INTERNET"/>
-        <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -32,11 +33,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="gruppe087.coursetracker.SetupActivity" />
         </activity>
-        <activity
-            android:name=".TodayOverviewActivity" />
-        <activity android:name=".MissedLecturesActivity"></activity>
+        <activity android:name=".TodayOverviewActivity" />
+        <activity android:name=".MissedLecturesActivity" />
+        <activity android:name=".ChooseCoursesSetup"></activity>
     </application>
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
-    
-    
+
 </manifest>
