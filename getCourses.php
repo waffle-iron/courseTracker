@@ -4,13 +4,17 @@ $dbname     = "coursetracker";
 $username   = "coursetracker";
 $password   = "admin";
 
-//$coursecode = $_GET['courseID'];
+$coursecode = $_GET['courseID'];
 
 // Create connection
 $connection = mysqli_connect($servername, $username, $password, $dbname)
   or die("Error " . mysqli_error($connection));
 
-$sql = "select * from courses inner join lecture where courses.courseID = lecture.courseID";
+$sql = "select TIME_FORMAT(time, '%H:%i'), courses.courseID, courseName, location
+        from courses
+        inner join lecture
+        where courses.'$coursecode' = lecture.courseID";
+
 $result = mysqli_query($connection, $sql)
   or die("Error in selecting " . mysqli_error($connection));
 
