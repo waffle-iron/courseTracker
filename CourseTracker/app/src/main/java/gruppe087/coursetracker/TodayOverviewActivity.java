@@ -42,6 +42,7 @@ public class TodayOverviewActivity extends AppCompatActivity {
         // Get reference of widgets from XML layout
         final ListView lv = (ListView) findViewById(R.id.lv);
 
+
         HttpGetRequest getRequest = new HttpGetRequest();
         String coursecode = "IE501109";
         String result;
@@ -54,17 +55,20 @@ public class TodayOverviewActivity extends AppCompatActivity {
             e.printStackTrace();
             result=null;
         }
-
+        String[] overview = new String[]{};
+        final List<String> overview_list = new ArrayList<String>(Arrays.asList(overview));
         try {
             JSONArray jsonArray = new JSONArray(result);
             for (int i = 0; i<jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                String code = jsonObject.getString("courseID");
-                String name = jsonObject.getString("courseName");
+                String courseID = jsonObject.getString("courseID");
+                String courseName = jsonObject.getString("courseName");
                 String location = jsonObject.getString("location");
                 String time = jsonObject.getString("time");
 
-                System.out.println(name + " @ " + location + ": " + time);
+                System.out.println(courseName + " @ " + location + ": " + time);
+                overview_list.add(courseName + " @ " + location + ": " + time);
+                //overview[i] = name + " @ " + location + ": " + time;
             }
 
         } catch (JSONException e) {
@@ -84,7 +88,7 @@ public class TodayOverviewActivity extends AppCompatActivity {
         final List<String> course_list = new ArrayList<String>(Arrays.asList(courses));
         // Create an ArrayAdapter from List
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>
-                (this, android.R.layout.simple_list_item_1, course_list);
+                (this, android.R.layout.simple_list_item_1, overview_list);
 
         // DataBind ListView with items from ArrayAdapter
         lv.setAdapter(arrayAdapter);
