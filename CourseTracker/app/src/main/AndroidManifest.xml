@@ -35,7 +35,16 @@
         </activity>
         <activity android:name=".TodayOverviewActivity" />
         <activity android:name=".MissedLecturesActivity" />
-        <activity android:name=".ChooseCoursesSetup"></activity>
+        <activity android:name=".ChooseCoursesSetup">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+            <meta-data android:name="android.app.ChooseCoursesSetup"
+                android:resource="@layout/activity_choose_courses_setup"/>
+
+
+        </activity>
     </application>
 
 </manifest>
+
