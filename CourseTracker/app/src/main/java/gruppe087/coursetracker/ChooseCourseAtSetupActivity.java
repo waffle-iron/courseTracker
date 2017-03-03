@@ -122,7 +122,7 @@ public class ChooseCourseAtSetupActivity extends AppCompatActivity {
         }
 
         lv = (ListView)findViewById(R.id.initlv);
-        arrayAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, listItems);
+        arrayAdapter = new ArrayAdapter<String>(this,R.layout.list_text_view, listItems);
         lv.setAdapter(arrayAdapter);
 
         mVisible = true;

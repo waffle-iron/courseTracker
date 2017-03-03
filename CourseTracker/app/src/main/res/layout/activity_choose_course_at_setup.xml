@@ -2,24 +2,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0099cc"
+    android:background="#FFFFFF"
     tools:context="gruppe087.coursetracker.ChooseCourseAtSetupActivity">
 
     <!-- The primary full-screen view. This can be replaced with whatever view
          is needed to present your content, e.g. VideoView, SurfaceView,
          TextureView, etc. -->
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/initlv"/>
 
 
     <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->
+
+    <TextView
+        android:text="Add courses"
+        android:layout_width="match_parent"
+        android:layout_height="57dp"
+        android:id="@+id/header"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:paddingLeft="20px"
+        android:paddingTop="20px" />
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/header">
 
         <LinearLayout
             android:id="@+id/fullscreen_content_controls"
@@ -40,6 +52,13 @@
                 android:text="@string/dummy_button" />
 
         </LinearLayout>
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="463dp"
+            android:id="@+id/initlv"
+            style="@style/List" />
+
     </FrameLayout>
 
 </RelativeLayout>
