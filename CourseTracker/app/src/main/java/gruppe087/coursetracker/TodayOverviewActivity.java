@@ -43,11 +43,11 @@ public class TodayOverviewActivity extends AppCompatActivity {
         final ListView lv = (ListView) findViewById(R.id.lv);
 
         // Initializing getRequest class
-        HttpGetRequest getRequest = new HttpGetRequest();
+        HttpGetRequest getRequest = new HttpGetRequest("getCourses.php");
         String coursecode = "IE501109";
         String result;
         try {
-            result = getRequest.execute(coursecode).get();
+            result = getRequest.execute("courseID", coursecode).get();
             System.out.println(result);
         } catch (InterruptedException e) {
             e.printStackTrace();

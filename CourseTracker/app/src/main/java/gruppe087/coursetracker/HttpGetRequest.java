@@ -8,8 +8,11 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by henrikbossart on 28.02.2017.
@@ -20,13 +23,19 @@ public class HttpGetRequest extends AsyncTask<String, Void, String> {
     public static final String REQUEST_METHOD   = "GET";
     public static final int READ_TIMEOUT        = 15000;
     public static final int CONNECTION_TIMEOUT  = 15000;
+    private final String filename;
+
+    public HttpGetRequest(String filename){
+        this.filename = filename;
+
+    }
 
     @Override
     protected String doInBackground(String... params) {
 
-        // Taking in the params and defining the coursecode
-        String coursecode = params[0];
-        String stringURL = "http://138.197.33.171/php/getCourses.php?courseID="+coursecode;
+        // Taking in the params and generating the URL.
+        // Varargs format: [varName,varValue, varName, varValue, ...]
+        String stringURL = this.generateURL(params);
         System.out.println(stringURL);
         String result;
         String inputLine;
@@ -66,6 +75,23 @@ public class HttpGetRequest extends AsyncTask<String, Void, String> {
         }
 
         return result;
+    }
+
+    private String generateURL(String[] params){
+        String stringURL = "http://138.197.33.171/php/" + filename;
+        if(params.length == 0){
+            return stringURL;
+        }
+        stringURL += "?";
+        for (int i = 0; i < Array.getLength(params); i++ ){
+            if (i%2 == 0){
+                stringURL += params[i];
+                stringURL += "=";
+            } else {
+                stringURL += params[i];
+            }
+        }
+        return stringURL;
     }
 
     @Override
