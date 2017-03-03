@@ -1,20 +1,22 @@
 package gruppe087.coursetracker;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ListView;
-import android.app.Activity;
-import android.widget.ArrayAdapter;
+import android.view.ViewGroup;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
-public class MissedLecturesActivity extends AppCompatActivity {
+public class MissedFragment extends Fragment {
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_missed, container, false);
+    }
+
+    /*    // Tatt fra gamle Activity'en før vi gikk over til fragments
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +44,6 @@ public class MissedLecturesActivity extends AppCompatActivity {
     // DataBind ListView with items from ArrayAdapter
     lv.setAdapter(arrayAdapter);
     arrayAdapter.notifyDataSetChanged();
-    }
+    }*/
 
 }

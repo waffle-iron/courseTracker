@@ -26,7 +26,7 @@ public class RegisterNameActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Define action on click
-                Intent myIntent = new Intent(RegisterNameActivity.this, TodayOverviewActivity.class);
+                Intent myIntent = new Intent(RegisterNameActivity.this, MainActivity.class);
                 //Optional parameters: myIntent.putExtra("key", value);
                 RegisterNameActivity.this.startActivity(myIntent);
             }

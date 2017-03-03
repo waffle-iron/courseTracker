@@ -10,4 +10,8 @@
     <string name="title_activity_register_name">RegisterNameActivity</string>
     <string name="title_activity_today_overview">TodayOverviewActivity</string>
     <string name="title_activity_missed_lectures">missed_lectures</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_main">MainActivity</string>
 </resources>
