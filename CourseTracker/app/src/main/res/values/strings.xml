@@ -10,4 +10,6 @@
     <string name="title_activity_register_name">RegisterNameActivity</string>
     <string name="title_activity_today_overview">TodayOverviewActivity</string>
     <string name="title_activity_missed_lectures">missed_lectures</string>
+
+    <string name="title_activity_choose_course_at_setup">ChooseCourseAtSetupActivity</string>
 </resources>
