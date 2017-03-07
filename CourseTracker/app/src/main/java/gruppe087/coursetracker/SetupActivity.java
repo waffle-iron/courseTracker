@@ -20,15 +20,28 @@ public class SetupActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_setup);
 
-        final Button button = (Button) findViewById(R.id.next_button);
-        button.setOnClickListener(new View.OnClickListener() {
+        // Sign In button == True
+        final Button button_signIn = (Button) findViewById(R.id.buttonSignIN);
+        button_signIn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
                 // Define action on click
-                Intent myIntent = new Intent(SetupActivity.this, RegisterNameActivity.class);
+                Intent myIntent = new Intent(SetupActivity.this, LoginActivity.class);
                 //Optional parameters: myIntent.putExtra("key", value);
                 SetupActivity.this.startActivity(myIntent);
             }
         });
+
+        // Sign Up button == True
+        final Button button_SignUp = (Button) findViewById(R.id.buttonSignUP);
+        button_SignUp.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v){
+                // Define action on click
+                Intent myIntent = new Intent(SetupActivity.this, SignupActivity.class);
+                //Optional parameters: myIntent.putExtra("key", value);
+                SetupActivity.this.startActivity(myIntent);
+            }
+        });
+
     }
 
 
