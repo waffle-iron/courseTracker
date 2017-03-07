@@ -14,8 +14,17 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:keepScreenOn="true"
-        android:hint="Type in your name "
-        android:textSize="26sp" />
+        android:hint="TYPE IN YOUR NAME"
+        android:textSize="36sp"
+        android:textColor="@android:color/white"
+        android:textColorLink="?attr/actionModeSplitBackground"
+        android:textColorHint="@color/black_overlay"
+        android:textCursorDrawable="@android:color/transparent"
+        android:background="@android:color/transparent"
+        android:inputType="textNoSuggestions"
+        android:textAllCaps="true"
+        android:textStyle="normal|bold"
+        android:includeFontPadding="false" />
 
     <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->
@@ -40,7 +49,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Get started!"/>
+                android:text="Get started!"
+                android:textColor="@android:color/background_light"
+                android:textColorLink="@android:color/transparent"
+                android:textColorHint="@android:drawable/screen_background_light_transparent"
+                android:background="@android:color/transparent" />
 
         </LinearLayout>
 

@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="gruppe087.coursetracker">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -29,6 +33,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="gruppe087.coursetracker.SetupActivity" />
         </activity>
+<<<<<<< HEAD
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
@@ -37,6 +42,20 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+=======
+        <activity android:name=".TodayOverviewActivity" />
+        <activity android:name=".MissedLecturesActivity" />
+        <activity
+            android:name=".ChooseCourseAtSetupActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_choose_course_at_setup"
+            android:parentActivityName=".RegisterNameActivity"
+            android:theme="@style/FullscreenTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="gruppe087.coursetracker.RegisterNameActivity" />
+        </activity>
+>>>>>>> b051882ba731b37e53bcca9f12ed96df61131446
     </application>
 
 </manifest>
