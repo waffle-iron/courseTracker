@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.MenuItem;
 import android.support.v4.app.NavUtils;
@@ -27,6 +29,7 @@ public class ChooseCourseAtSetupActivity extends AppCompatActivity {
     ArrayList<String> listItems = new ArrayList<String>();
     ListView lv;
     EditText et;
+    HttpGetRequest getRequest;
 
 
 
@@ -37,14 +40,48 @@ public class ChooseCourseAtSetupActivity extends AppCompatActivity {
 
         lv = (ListView)findViewById(R.id.initlv);
         arrayAdapter = new ArrayAdapter<String>(this,R.layout.list_text_view, listItems);
-        lv.setAdapter(arrayAdapter);
 
         //START LISTVIEW
 
-        final ListView lv = (ListView) findViewById(R.id.initlv);
+        lv = (ListView) findViewById(R.id.initlv);
+        et = (EditText) findViewById(R.id.searchtxt);
 
+        initList();
+        et.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        //END LISTVIEW
+
+        final Button button = (Button) findViewById(R.id.dummy_button);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Define action on click
+                //Intent myIntent = new Intent(RegisterNameActivity.this, TodayOverviewActivity.class);
+                Intent myIntent = new Intent(ChooseCourseAtSetupActivity.this, MainActivity.class);
+                //Optional parameters: myIntent.putExtra("key", value);
+                ChooseCourseAtSetupActivity.this.startActivity(myIntent);
+            }
+        });
+
+    }
+
+    public void initList(){
         // Initializing getRequest class
-        HttpGetRequest getRequest = new HttpGetRequest("addCoursesSetup.php");
+        getRequest = new HttpGetRequest("addCoursesSetup.php");
         String result;
         try {
             result = getRequest.execute().get();
@@ -56,6 +93,8 @@ public class ChooseCourseAtSetupActivity extends AppCompatActivity {
             e.printStackTrace();
             result=null;
         }
+
+
         String[] overview = new String[]{};
         final List<String> overview_list = new ArrayList<String>(Arrays.asList(overview));
 
@@ -83,25 +122,11 @@ public class ChooseCourseAtSetupActivity extends AppCompatActivity {
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>
                 (this, android.R.layout.simple_list_item_1, overview_list);
 
+
         // DataBind ListView with items from ArrayAdapter
         lv.setAdapter(arrayAdapter);
         arrayAdapter.notifyDataSetChanged();
-
-        //END LISTVIEW
-
-        final Button button = (Button) findViewById(R.id.dummy_button);
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                // Define action on click
-                //Intent myIntent = new Intent(RegisterNameActivity.this, TodayOverviewActivity.class);
-                Intent myIntent = new Intent(ChooseCourseAtSetupActivity.this, TodayOverviewActivity.class);
-                //Optional parameters: myIntent.putExtra("key", value);
-                ChooseCourseAtSetupActivity.this.startActivity(myIntent);
-            }
-        });
-
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
