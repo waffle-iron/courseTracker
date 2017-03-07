@@ -11,11 +11,7 @@
     <string name="title_activity_today_overview">TodayOverviewActivity</string>
     <string name="title_activity_missed_lectures">missed_lectures</string>
 
-<<<<<<< HEAD
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_main">MainActivity</string>
-=======
     <string name="title_activity_choose_course_at_setup">ChooseCourseAtSetupActivity</string>
->>>>>>> b051882ba731b37e53bcca9f12ed96df61131446
 </resources>
