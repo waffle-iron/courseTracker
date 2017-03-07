@@ -24,7 +24,7 @@ public class SetupActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
                 // Define action on click
-                Intent myIntent = new Intent(SetupActivity.this, RegisterNameActivity.class);
+                Intent myIntent = new Intent(SetupActivity.this, ChooseCourseAtSetupActivity.class);
                 //Optional parameters: myIntent.putExtra("key", value);
                 SetupActivity.this.startActivity(myIntent);
             }
