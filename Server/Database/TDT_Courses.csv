@@ -1,3 +1,4 @@
+courseCode, courseName, location, examDate
 TDT4100,Object-Oriented Programming,Trondheim,16.05.2017
 TDT4102,Procedural and Object-Oriented Programming,Trondheim,19.05.2017
 TDT4105,Information Technology, Introduction,Trondheim,
@@ -49,4 +50,4 @@ TDT4506,Computer Science, Specialization Course,Trondheim,
 TDT4850,Experts in Teamwork - ICT-Enabled Social Innovation for Social Good,Trondheim,
 TDT4855,Experts in Teamwork - Large scale CO2 storage,Trondheim,
 TDT4856,Experts in Teamwork - IT Management of Modern Trucks,Trondheim,
-TDT4900,Computer Science, Master's Thesis,Trondheim,
+TDT4900,Computer Science, Master's Thesis,Trondheim,Test1,
