@@ -13,7 +13,8 @@ import android.widget.Toast;
 public class LoginActivity extends AppCompatActivity {
 
     LoginDataBaseAdapter loginDataBaseAdapter;
-    EditText editTextUserName,editTextPassword;
+    EditText editTextUserNameToLogin,editTextPasswordToLogin;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,32 +26,31 @@ public class LoginActivity extends AppCompatActivity {
         loginDataBaseAdapter=loginDataBaseAdapter.open();
 
         // Get Refferences of Views (OBS SJEKK OM RIKTIG ID)
-        editTextUserName=(EditText)findViewById(R.id.editTextUserName);
-        editTextPassword=(EditText)findViewById(R.id.editTextPassword);
+        editTextUserNameToLogin=(EditText)findViewById(R.id.editTextUserNameToLogin);
+        editTextPasswordToLogin=(EditText)findViewById(R.id.editTextPasswordToLogin);
 
         // When Log in button pushed
         final Button button = (Button) findViewById(R.id.buttonSignIn);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
                 // get The User name and Password
-                String userName=editTextUserName.getText().toString();
-                String password=editTextPassword.getText().toString();
+                String userName=editTextUserNameToLogin.getText().toString();
+                String password=editTextPasswordToLogin.getText().toString();
                 // fetch the Password form database for respective user name
                 String storedPassword=loginDataBaseAdapter.getSinlgeEntry(userName);
                 // check if the Stored password matches with  Password entered by user
                 if(password.equals(storedPassword))
                 {
                     Toast.makeText(LoginActivity.this, "Congrats: Login Successfull", Toast.LENGTH_LONG).show();
-                    return;
+                    // Define action on click
+                    Intent myIntent = new Intent(LoginActivity.this, ChooseCourseAtSetupActivity.class);
+                    //Optional parameters: myIntent.putExtra("key", value);
+                    LoginActivity.this.startActivity(myIntent);
                 }
                 else
                 {
-                    Toast.makeText(LoginActivity.this, "User Name or Password does not match", Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this, "User Name or Password is not correct or found in database", Toast.LENGTH_LONG).show();
                 }
-                // Define action on click
-                Intent myIntent = new Intent(LoginActivity.this, MainActivity.class);
-                //Optional parameters: myIntent.putExtra("key", value);
-                LoginActivity.this.startActivity(myIntent);
             }
         });
     }
