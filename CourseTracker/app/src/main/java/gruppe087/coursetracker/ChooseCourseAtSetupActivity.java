@@ -17,6 +17,8 @@ import android.widget.ListView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -26,10 +28,12 @@ import java.util.concurrent.ExecutionException;
 public class ChooseCourseAtSetupActivity extends AppCompatActivity {
 
     ArrayAdapter<String> arrayAdapter;
-    ArrayList<String> listItems = new ArrayList<String>();
+    ArrayList<String> listItems;
     ListView lv;
     EditText et;
     HttpGetRequest getRequest;
+    ArrayList<String> overview_list;
+    ArrayList<String> hidden_list;
 
 
 
@@ -47,6 +51,8 @@ public class ChooseCourseAtSetupActivity extends AppCompatActivity {
         et = (EditText) findViewById(R.id.searchtxt);
 
         initList();
+        System.out.println("First");
+        System.out.println(listItems);
         et.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -55,7 +61,15 @@ public class ChooseCourseAtSetupActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.toString().equals("")){
+                    //reset listview
+                    initList();
+                }
+                else {
+                    //perform search
+                    searchItem(s.toString());
 
+                }
             }
 
             @Override
@@ -79,7 +93,36 @@ public class ChooseCourseAtSetupActivity extends AppCompatActivity {
 
     }
 
+    public void searchItem(String textToSearch){
+
+        if(overview_list.size() != 0) {
+            for (int i = 0; i < overview_list.size(); i++) {
+
+                String item = overview_list.get(i);
+
+                if (!item.toLowerCase().contains(textToSearch.toLowerCase())) {
+                    hidden_list.add(item);
+                    overview_list.remove(item);
+                }
+            }
+        }
+        if(hidden_list.size() != 0){
+            for (int i = 0; i < hidden_list.size(); i++) {
+                String item = hidden_list.get(i);
+
+                if(item.toLowerCase().contains(textToSearch.toLowerCase())){
+                    overview_list.add(item);
+                    hidden_list.remove(item);
+                }
+            }
+        }
+        arrayAdapter.notifyDataSetChanged();
+
+    }
+
     public void initList(){
+
+         listItems = new ArrayList<String>();
         // Initializing getRequest class
         getRequest = new HttpGetRequest("addCoursesSetup.php");
         String result;
@@ -96,7 +139,8 @@ public class ChooseCourseAtSetupActivity extends AppCompatActivity {
 
 
         String[] overview = new String[]{};
-        final List<String> overview_list = new ArrayList<String>(Arrays.asList(overview));
+        overview_list = new ArrayList<String>(Arrays.asList(overview));
+        hidden_list = new ArrayList<String>();
 
         // Parsing the result and turning it into an JSONArray, so that it is simpler to pick
         // out the fields that are wanted.
@@ -119,13 +163,12 @@ public class ChooseCourseAtSetupActivity extends AppCompatActivity {
 
 
         // Create a List from String Array elements
-        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>
+        arrayAdapter = new ArrayAdapter<String>
                 (this, android.R.layout.simple_list_item_1, overview_list);
 
 
         // DataBind ListView with items from ArrayAdapter
         lv.setAdapter(arrayAdapter);
-        arrayAdapter.notifyDataSetChanged();
     }
 
     @Override
