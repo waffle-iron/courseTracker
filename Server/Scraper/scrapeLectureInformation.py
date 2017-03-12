@@ -63,35 +63,40 @@ class LectureInformationScraper:
     # Saves information from site as a string
     def fetchInfoFromHtml(self, lectureIndex):
         
-        courseCodeStr = '"courseCode":"'
-        startTimeStr = '"from":"'
+        courseCodeStr = '"courseCode":'
+        startTimeStr = '"from":'
     	weekDayStr = '"dayNum":'
     	weekNumStr = '"weeks":['
-    	roomStr = '"romNavn":"'
-    	endStr = '","'
+    	roomStr = '"romNavn":'
+    	endStr = ',"'
         endDayNum = ','
         endWeekNum = '],"rooms":'
 
         # Finds all the indexes to make us fetch specific information from html
                 
-    	courseCodeStrtartIndex = (self.html.find(courseCodeStr, lectureIndex) + len(courseCodeStr))
-    	courseCodeEndIndex = self.html.find(endStr, courseCodeStrtartIndex)
-    	startTimeStrtartIndex = (self.html.find(startTimeStr, lectureIndex) + len(startTimeStr))
-        startTimeEndIndex = self.html.find(endStr, startTimeStrtartIndex)
-    	weekDayStrtartIndex = (self.html.find(weekDayStr, lectureIndex) + len(weekDayStr))
-        weekDayEndIndex = self.html.find(endDayNum, weekDayStrtartIndex)
-        weekNumStrtartIndex = (self.html.find(weekNumStr, lectureIndex) + len(weekNumStr))
-        weekNumEndIndex = self.html.find(endWeekNum, weekNumStrtartIndex)
-    	roomStrtartIndex = (self.html.find(roomStr, lectureIndex) + len(roomStr))
-        roomEndIndex = self.html.find(endStr, roomStrtartIndex)
+    	courseCodeStartIndex = (self.html.find(courseCodeStr, lectureIndex) + len(courseCodeStr))
+    	courseCodeEndIndex = self.html.find(endStr, courseCodeStartIndex)
+    	startTimeStartIndex = (self.html.find(startTimeStr, lectureIndex) + len(startTimeStr))
+        startTimeEndIndex = self.html.find(endStr, startTimeStartIndex)
+    	weekDayStartIndex = (self.html.find(weekDayStr, lectureIndex) + len(weekDayStr))
+        weekDayEndIndex = self.html.find(endDayNum, weekDayStartIndex)
+        weekNumStartIndex = (self.html.find(weekNumStr, lectureIndex) + len(weekNumStr))
+        weekNumEndIndex = self.html.find(endWeekNum, weekNumStartIndex)
+    	roomStartIndex = (self.html.find(roomStr, lectureIndex) + len(roomStr))
+        roomEndIndex = self.html.find(endStr, roomStartIndex)
         #lectureIndex = (self.html.find(lectureStr, roomEndIndex) + len(lectureStr))
 
         # Stores specific information to the global variables for the class
-        self.courseCode = self.html[courseCodeStrtartIndex:courseCodeEndIndex]
-        self.startTime = self.html[startTimeStrtartIndex:startTimeEndIndex]
-        self.weekDay = self.html[weekDayStrtartIndex:weekDayEndIndex]
-        self.weekNum = self.html[weekNumStrtartIndex:weekNumEndIndex]
-        self.room = self.html[roomStrtartIndex:roomEndIndex]
+        self.courseCode = self.html[courseCodeStartIndex:courseCodeEndIndex]
+        self.startTime = self.html[startTimeStartIndex:startTimeEndIndex]
+        self.weekDay = '"' + self.html[weekDayStartIndex:weekDayEndIndex] + '"'
+        self.weekNum = self.html[weekNumStartIndex:weekNumEndIndex]
+        self.room = self.html[roomStartIndex:roomEndIndex]
+        
+        # If room is not given        
+        if(roomStartIndex < weekNumEndIndex):
+            self.room = '""'        
+        
     
         # For testing purposes
 
@@ -116,3 +121,9 @@ class LectureInformationScraper:
 
         csvFile = ManipulateCSVFile()
         return csvFile.fetchFromCSV(csvFile.getCourseCodeFilePath(), 'courseCode')
+
+    # Runs the command fixLextureWeeks in manipulateCSV
+    def runFixLectureWeeks(self):
+
+        csvFile = ManipulateCSVFile()
+        csvFile.fixLectureWeeks()

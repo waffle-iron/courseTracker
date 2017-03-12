@@ -4,9 +4,9 @@ from scraper.scrapeLectureInformation import LectureInformationScraper
 from scraper.manipulateCSV import ManipulateCSVFile
 
 def main():
-
-
+    
     courses = LectureInformationScraper()
+  
     courseCodes = courses.getCourseCodesInCSV() # List with all course codes from csv file
     year = date.today().year
     version = 1
@@ -25,7 +25,14 @@ def main():
             course.fetchInfoFromHtml(lectureIndexes[lectureNum])
             course.addLecturesToCSV()
 
-        print "Information regarding the course is saved to the csv-file"
+    # Make a lecture for every week instead of a lecture for ex. week 2-15
+    course.runFixLectureWeeks()
+    
+    # Converts from weekday and week to date
+    csv = ManipulateCSVFile()
+    csv.lectureToDateFormat()
+
+    print "Information regarding the course is saved to the csv-file"
 
 
 main()
