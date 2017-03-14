@@ -24,6 +24,7 @@ import org.json.JSONObject;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -52,6 +53,7 @@ public class ChooseCourseAtSetupActivity extends AppCompatActivity {
 
         lv = (ListView) findViewById(R.id.initlv);
         et = (EditText) findViewById(R.id.searchtxt);
+        final List<Boolean> selected = new ArrayList<Boolean>(Collections.nCopies(60, false));
 
         lv.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         lv.setItemsCanFocus(false);
@@ -60,13 +62,19 @@ public class ChooseCourseAtSetupActivity extends AppCompatActivity {
         System.out.println("First");
         System.out.println(listItems);
 
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /*lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
+                if (!selected.get(position)){
+                    view.setBackgroundColor(getResources().getColor(R.color.grey));
+                    selected.set(position, true);
+                } else {
+                    view.setBackgroundColor(getResources().getColor(R.color.white));
+                    selected.set(position, false);
+                }
 
-                view.setBackgroundColor(getResources().getColor(R.color.grey));
             }
-        });
+        });        */
 
         et.addTextChangedListener(new TextWatcher() {
             @Override
