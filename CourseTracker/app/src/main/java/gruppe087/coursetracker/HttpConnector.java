@@ -20,6 +20,7 @@ import java.util.Arrays;
 
 public class HttpConnector extends AsyncTask<String, Void, String> {
 
+    private String url                          = "http://138.197.33.171/php/";
     public static final String REQUEST_METHOD   = "GET";
     public static final int READ_TIMEOUT        = 15000;
     public static final int CONNECTION_TIMEOUT  = 15000;
@@ -39,6 +40,7 @@ public class HttpConnector extends AsyncTask<String, Void, String> {
         System.out.println(stringURL);
         String result;
         String inputLine;
+        System.out.println("params: " + params);
 
         try {
 
@@ -78,7 +80,7 @@ public class HttpConnector extends AsyncTask<String, Void, String> {
     }
 
     private String generateURL(String[] params){
-        String stringURL = "http://138.197.33.171/php/" + filename;
+        String stringURL = url + filename;
         if(params.length == 0){
             return stringURL;
         }
