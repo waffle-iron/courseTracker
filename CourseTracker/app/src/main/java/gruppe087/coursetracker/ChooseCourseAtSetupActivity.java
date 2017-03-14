@@ -10,10 +10,13 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.view.MenuItem;
 import android.support.v4.app.NavUtils;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -50,9 +53,21 @@ public class ChooseCourseAtSetupActivity extends AppCompatActivity {
         lv = (ListView) findViewById(R.id.initlv);
         et = (EditText) findViewById(R.id.searchtxt);
 
+        lv.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        lv.setItemsCanFocus(false);
+
         initList();
         System.out.println("First");
         System.out.println(listItems);
+
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+
+                view.setBackgroundColor(getResources().getColor(R.color.grey));
+            }
+        });
+
         et.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
