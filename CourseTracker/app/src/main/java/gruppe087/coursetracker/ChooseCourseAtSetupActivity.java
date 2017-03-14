@@ -2,16 +2,17 @@ package gruppe087.coursetracker;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.MenuItem;
 import android.support.v4.app.NavUtils;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -25,19 +26,21 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.ExecutionException;
 
 
 public class ChooseCourseAtSetupActivity extends AppCompatActivity {
 
-    ArrayAdapter<String> arrayAdapter;
+    CustomAdapter<String> customAdapter;
     ArrayList<String> listItems;
     ListView lv;
     EditText et;
     HttpGetRequest getRequest;
     ArrayList<String> overview_list;
-    ArrayList<String> hidden_list;
+    HashSet<Integer> selected = new HashSet<Integer>();
 
 
 
@@ -47,34 +50,37 @@ public class ChooseCourseAtSetupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_choose_course_at_setup);
 
         lv = (ListView)findViewById(R.id.initlv);
-        arrayAdapter = new ArrayAdapter<String>(this,R.layout.list_text_view, listItems);
+        customAdapter = new CustomAdapter<String>(this, listItems, selected);
 
         //START LISTVIEW
 
         lv = (ListView) findViewById(R.id.initlv);
         et = (EditText) findViewById(R.id.searchtxt);
-        final List<Boolean> selected = new ArrayList<Boolean>(Collections.nCopies(60, false));
 
         lv.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         lv.setItemsCanFocus(false);
 
         initList();
-        System.out.println("First");
-        System.out.println(listItems);
 
-        /*lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                if (!selected.get(position)){
+                String selectedFromList = (String)(customAdapter.getItem(position));
+                System.out.println(selectedFromList);
+                int pos = overview_list.indexOf(selectedFromList);
+
+                if (!isSelected(pos)){
                     view.setBackgroundColor(getResources().getColor(R.color.grey));
-                    selected.set(position, true);
+                    select(pos);
                 } else {
                     view.setBackgroundColor(getResources().getColor(R.color.white));
-                    selected.set(position, false);
+                    deselect(pos);
                 }
+                customAdapter.updateSelected(selected);
+                customAdapter.notifyDataSetChanged();
 
             }
-        });        */
+        });
 
         et.addTextChangedListener(new TextWatcher() {
             @Override
@@ -87,6 +93,7 @@ public class ChooseCourseAtSetupActivity extends AppCompatActivity {
                 if (s.toString().equals("")){
                     //reset listview
                     initList();
+                    colourSelectedItems();
                 }
                 else {
                     //perform search
@@ -116,6 +123,21 @@ public class ChooseCourseAtSetupActivity extends AppCompatActivity {
 
     }
 
+    private void colourSelectedItems(){
+        for (int i = 0; i < customAdapter.getCount(); i++){
+            View v = getViewByPosition(i,lv);
+            v.setBackgroundColor(Color.BLUE);
+            String s = (String) customAdapter.getItem(i);
+            int index = overview_list.indexOf(s);
+            if (selected.contains(index)) {
+                v.setBackgroundColor(getResources().getColor(R.color.grey));
+            } else {
+                v.setBackgroundColor(Color.WHITE);
+            }
+
+        }
+    }
+
     public void searchItem(String textToSearch){
 
         if(overview_list.size() != 0) {
@@ -124,22 +146,18 @@ public class ChooseCourseAtSetupActivity extends AppCompatActivity {
                 String item = overview_list.get(i);
 
                 if (!item.toLowerCase().contains(textToSearch.toLowerCase())) {
-                    hidden_list.add(item);
-                    overview_list.remove(item);
+                    customAdapter.addHiddenPosition(i);
+                } else {
+                    customAdapter.removeHiddenPosition(i);
                 }
             }
         }
-        if(hidden_list.size() != 0){
-            for (int i = 0; i < hidden_list.size(); i++) {
-                String item = hidden_list.get(i);
+        colourSelectedItems();
 
-                if(item.toLowerCase().contains(textToSearch.toLowerCase())){
-                    overview_list.add(item);
-                    hidden_list.remove(item);
-                }
-            }
-        }
-        arrayAdapter.notifyDataSetChanged();
+        ArrayList sortedList = new ArrayList(selected);
+        Collections.sort(sortedList);
+        System.out.println(sortedList);
+        customAdapter.notifyDataSetChanged();
 
     }
 
@@ -151,7 +169,6 @@ public class ChooseCourseAtSetupActivity extends AppCompatActivity {
         String result;
         try {
             result = getRequest.execute().get();
-            System.out.println(result);
         } catch (InterruptedException e) {
             e.printStackTrace();
             result=null;
@@ -163,7 +180,6 @@ public class ChooseCourseAtSetupActivity extends AppCompatActivity {
 
         String[] overview = new String[]{};
         overview_list = new ArrayList<String>(Arrays.asList(overview));
-        hidden_list = new ArrayList<String>();
 
         // Parsing the result and turning it into an JSONArray, so that it is simpler to pick
         // out the fields that are wanted.
@@ -176,8 +192,7 @@ public class ChooseCourseAtSetupActivity extends AppCompatActivity {
                 //String location = jsonObject.getString("location");
                 //String time = jsonObject.getString("TIME_FORMAT(time, '%H:%i')");
 
-                System.out.println(courseID);
-                overview_list.add(courseID + "\t" + courseName);
+                overview_list.add(courseID + " " + courseName);
             }
 
         } catch (JSONException e) {
@@ -186,13 +201,17 @@ public class ChooseCourseAtSetupActivity extends AppCompatActivity {
 
 
         // Create a List from String Array elements
-        arrayAdapter = new ArrayAdapter<String>
-                (this, android.R.layout.simple_list_item_1, overview_list);
+        customAdapter = new CustomAdapter<String>
+                (this, overview_list, selected);
 
 
-        // DataBind ListView with items from ArrayAdapter
-        lv.setAdapter(arrayAdapter);
+        // DataBind ListView with items from CustomAdapter
+        lv.setAdapter(customAdapter);
+        colourSelectedItems();
+        customAdapter.notifyDataSetChanged();
     }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -205,4 +224,32 @@ public class ChooseCourseAtSetupActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void select(int pos){
+        selected.add(pos);
+    }
+
+    public void deselect (int pos){
+        selected.remove(pos);
+    }
+
+    public boolean isSelected(int pos){
+        if(selected.contains(pos)){
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public View getViewByPosition(int pos, ListView listView) {
+        final int firstListItemPosition = listView.getFirstVisiblePosition();
+        final int lastListItemPosition = firstListItemPosition + listView.getChildCount() - 1;
+
+        if (pos < firstListItemPosition || pos > lastListItemPosition ) {
+            return listView.getAdapter().getView(pos, null, listView);
+        } else {
+            final int childIndex = pos - firstListItemPosition;
+            return listView.getChildAt(childIndex);
+        }
+    }
+
 }
+

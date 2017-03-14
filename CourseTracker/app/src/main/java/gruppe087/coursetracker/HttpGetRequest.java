@@ -36,7 +36,6 @@ public class HttpGetRequest extends AsyncTask<String, Void, String> {
         // Taking in the params and generating the URL.
         // Varargs format: [varName,varValue, varName, varValue, ...]
         String stringURL = this.generateURL(params);
-        System.out.println(stringURL);
         String result;
         String inputLine;
 
