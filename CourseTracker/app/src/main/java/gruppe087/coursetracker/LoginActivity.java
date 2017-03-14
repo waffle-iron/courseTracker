@@ -43,7 +43,7 @@ public class LoginActivity extends AppCompatActivity {
                 {
                     Toast.makeText(LoginActivity.this, "Congrats: Login Successfull", Toast.LENGTH_LONG).show();
                     // Define action on click
-                    Intent myIntent = new Intent(LoginActivity.this, ChooseCourseAtSetupActivity.class);
+                    Intent myIntent = new Intent(LoginActivity.this, MainActivity.class);
                     //Optional parameters: myIntent.putExtra("key", value);
                     LoginActivity.this.startActivity(myIntent);
                 }
