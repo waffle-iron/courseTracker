@@ -18,14 +18,14 @@ import java.util.Arrays;
  * Created by henrikbossart on 28.02.2017.
  */
 
-public class HttpGetRequest extends AsyncTask<String, Void, String> {
+public class HttpConnector extends AsyncTask<String, Void, String> {
 
     public static final String REQUEST_METHOD   = "GET";
     public static final int READ_TIMEOUT        = 15000;
     public static final int CONNECTION_TIMEOUT  = 15000;
     private final String filename;
 
-    public HttpGetRequest(String filename){
+    public HttpConnector(String filename){
         this.filename = filename;
 
     }

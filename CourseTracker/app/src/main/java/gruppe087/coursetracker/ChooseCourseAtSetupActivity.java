@@ -1,8 +1,6 @@
 package gruppe087.coursetracker;
 
-import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -18,10 +16,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 
@@ -31,7 +27,7 @@ public class ChooseCourseAtSetupActivity extends AppCompatActivity {
     ArrayList<String> listItems;
     ListView lv;
     EditText et;
-    HttpGetRequest getRequest;
+    HttpConnector httpConnector;
     ArrayList<String> overview_list;
     ArrayList<String> hidden_list;
 
@@ -123,11 +119,11 @@ public class ChooseCourseAtSetupActivity extends AppCompatActivity {
     public void initList(){
 
          listItems = new ArrayList<String>();
-        // Initializing getRequest class
-        getRequest = new HttpGetRequest("addCoursesSetup.php");
+        // Initializing httpConnector class
+        httpConnector = new HttpConnector("addCoursesSetup.php");
         String result;
         try {
-            result = getRequest.execute().get();
+            result = httpConnector.execute().get();
             System.out.println(result);
         } catch (InterruptedException e) {
             e.printStackTrace();
