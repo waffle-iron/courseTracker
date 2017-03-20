@@ -120,7 +120,7 @@ public class ChooseCourseAtSetupActivity extends AppCompatActivity {
 
          listItems = new ArrayList<String>();
         // Initializing httpConnector class
-        httpConnector = new HttpConnector("addCoursesSetup.php");
+        httpConnector = new HttpConnector("getCourses");
         String result;
         try {
             result = httpConnector.execute().get();
@@ -140,16 +140,15 @@ public class ChooseCourseAtSetupActivity extends AppCompatActivity {
 
         // Parsing the result and turning it into an JSONArray, so that it is simpler to pick
         // out the fields that are wanted.
+        JSONArray jsonArray = httpConnector.JSONArrayConvert(result);
+
         try {
-            JSONArray jsonArray = new JSONArray(result);
+
             for (int i = 0; i<jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 String courseID = jsonObject.getString("courseID");
                 String courseName = jsonObject.getString("courseName");
-                //String location = jsonObject.getString("location");
-                //String time = jsonObject.getString("TIME_FORMAT(time, '%H:%i')");
 
-                System.out.println(courseID);
                 overview_list.add(courseID + "\t" + courseName);
             }
 

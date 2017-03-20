@@ -24,10 +24,32 @@ public class HttpConnector extends AsyncTask<String, Void, String> {
     public static final String REQUEST_METHOD   = "GET";
     public static final int READ_TIMEOUT        = 15000;
     public static final int CONNECTION_TIMEOUT  = 15000;
-    private final String filename;
 
-    public HttpConnector(String filename){
-        this.filename = filename;
+    public HttpConnector(String command, String... argument){
+
+        switch (command){
+            case "getCourse":
+                url = url + "getCourse.php?courseID='" + argument + "'";
+                break;
+
+            case "getCourses":
+                url = url + "getCourses.php";
+                break;
+
+            case "addCoursesSetup":
+                url = url + "addCoursesSetup.php";
+                break;
+
+            case "getLectures":
+                url = url + "getLectures.php";
+                break;
+
+            case "getLecture":
+                url = url + "getLecture.php?='" + argument + "'";
+                break;
+            
+        }
+
 
     }
 
@@ -80,7 +102,7 @@ public class HttpConnector extends AsyncTask<String, Void, String> {
     }
 
     private String generateURL(String[] params){
-        String stringURL = url + filename;
+        String stringURL = url;
         if(params.length == 0){
             return stringURL;
         }
@@ -100,4 +122,17 @@ public class HttpConnector extends AsyncTask<String, Void, String> {
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
     }
+
+    public JSONArray JSONArrayConvert(String input) {
+
+        try {
+            JSONArray jsonArray = new JSONArray(input);
+            return jsonArray;
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }
