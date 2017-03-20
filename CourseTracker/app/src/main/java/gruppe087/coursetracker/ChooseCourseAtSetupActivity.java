@@ -41,12 +41,18 @@ public class ChooseCourseAtSetupActivity extends AppCompatActivity {
     HttpGetRequest getRequest;
     ArrayList<String> overview_list;
     HashSet<Integer> selected = new HashSet<Integer>();
+    LoginDataBaseAdapter loginDataBaseAdapter;
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // get Instance  of Database Adapter
+        loginDataBaseAdapter=new LoginDataBaseAdapter(this);
+        loginDataBaseAdapter=loginDataBaseAdapter.open();
+
         setContentView(R.layout.activity_choose_course_at_setup);
 
         lv = (ListView)findViewById(R.id.initlv);
@@ -66,7 +72,6 @@ public class ChooseCourseAtSetupActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 String selectedFromList = (String)(customAdapter.getItem(position));
-                System.out.println(selectedFromList);
                 int pos = overview_list.indexOf(selectedFromList);
 
                 if (!isSelected(pos)){
@@ -126,7 +131,6 @@ public class ChooseCourseAtSetupActivity extends AppCompatActivity {
     private void colourSelectedItems(){
         for (int i = 0; i < customAdapter.getCount(); i++){
             View v = getViewByPosition(i,lv);
-            v.setBackgroundColor(Color.BLUE);
             String s = (String) customAdapter.getItem(i);
             int index = overview_list.indexOf(s);
             if (selected.contains(index)) {
@@ -207,7 +211,6 @@ public class ChooseCourseAtSetupActivity extends AppCompatActivity {
 
         // DataBind ListView with items from CustomAdapter
         lv.setAdapter(customAdapter);
-        colourSelectedItems();
         customAdapter.notifyDataSetChanged();
     }
 
