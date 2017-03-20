@@ -121,7 +121,7 @@ public class ChooseCourseAtSetupActivity extends AppCompatActivity {
          listItems = new ArrayList<String>();
         // Initializing httpConnector class
         httpConnector = new HttpConnector("getCourses");
-        String result;
+        JSONArray result;
         try {
             result = httpConnector.execute().get();
             System.out.println(result);
@@ -140,12 +140,11 @@ public class ChooseCourseAtSetupActivity extends AppCompatActivity {
 
         // Parsing the result and turning it into an JSONArray, so that it is simpler to pick
         // out the fields that are wanted.
-        JSONArray jsonArray = httpConnector.JSONArrayConvert(result);
 
         try {
 
-            for (int i = 0; i<jsonArray.length(); i++) {
-                JSONObject jsonObject = jsonArray.getJSONObject(i);
+            for (int i = 0; i<result.length(); i++) {
+                JSONObject jsonObject = result.getJSONObject(i);
                 String courseID = jsonObject.getString("courseID");
                 String courseName = jsonObject.getString("courseName");
 
@@ -155,6 +154,7 @@ public class ChooseCourseAtSetupActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
 
 
         // Create a List from String Array elements

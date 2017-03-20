@@ -18,7 +18,7 @@ import java.util.Arrays;
  * Created by henrikbossart on 28.02.2017.
  */
 
-public class HttpConnector extends AsyncTask<String, Void, String> {
+public class HttpConnector extends AsyncTask<String, Void, JSONArray> {
 
     private String url                          = "http://138.197.33.171/php/";
     public static final String REQUEST_METHOD   = "GET";
@@ -27,6 +27,11 @@ public class HttpConnector extends AsyncTask<String, Void, String> {
 
     public HttpConnector(String command, String... argument){
 
+        commandChanger(command, argument);
+
+    }
+
+    public void commandChanger(String command, String... argument){
         switch (command){
             case "getCourse":
                 url = url + "getCourse.php?courseID='" + argument + "'";
@@ -45,16 +50,17 @@ public class HttpConnector extends AsyncTask<String, Void, String> {
                 break;
 
             case "getLecture":
-                url = url + "getLecture.php?='" + argument + "'";
+                //given that the arguments passed into the method are COURSEID, DATE, and DATE is on
+                // format YYYY-MM-DD
+                url = url + "getLecture.php?courseID=" + argument + "&" + argument;
                 break;
-            
+
         }
-
-
     }
 
+
     @Override
-    protected String doInBackground(String... params) {
+    protected JSONArray doInBackground(String... params) {
 
         // Taking in the params and generating the URL.
         // Varargs format: [varName,varValue, varName, varValue, ...]
@@ -98,7 +104,8 @@ public class HttpConnector extends AsyncTask<String, Void, String> {
             result = null;
         }
 
-        return result;
+        return JSONArrayConvert(result);
+
     }
 
     private String generateURL(String[] params){
@@ -119,7 +126,7 @@ public class HttpConnector extends AsyncTask<String, Void, String> {
     }
 
     @Override
-    protected void onPostExecute(String result) {
+    protected void onPostExecute(JSONArray result) {
         super.onPostExecute(result);
     }
 
