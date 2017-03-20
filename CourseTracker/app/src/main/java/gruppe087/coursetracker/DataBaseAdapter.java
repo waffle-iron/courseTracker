@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 public class DataBaseAdapter {
 
-    static final String DATABASE_NAME = "login.db";
+    static final String DATABASE_NAME = "userdb.db";
     static final int DATABASE_VERSION = 1;
     public static final int NAME_COLUMN = 1;
     // TODO: Create public field for each column in your table.
