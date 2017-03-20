@@ -25,7 +25,7 @@ public class LoginActivity extends Activity {
         loginDataBaseAdapter=new LoginDataBaseAdapter(this);
         loginDataBaseAdapter=loginDataBaseAdapter.open();
 
-        // Get Refferences of Views (OBS SJEKK OM RIKTIG ID)
+        // Get Refferences of Views
         editTextUserNameToLogin=(EditText)findViewById(R.id.editTextUserNameToLogin);
         editTextPasswordToLogin=(EditText)findViewById(R.id.editTextPasswordToLogin);
 
